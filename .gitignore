@@ -1,0 +1,69 @@
+# Local environment and secrets
+.env
+.env.*
+*.env
+# Exact secret names and data files; keep similarly named source/tests visible.
+[Aa][Pp][Ii][Kk][Ee][Yy]
+[Aa][Pp][Ii][Kk][Ee][Yy][Ss]
+[Aa][Pp][Ii][-_][Kk][Ee][Yy]
+*[Aa][Pp][Ii][Kk][Ee][Yy]*.txt
+*[Aa][Pp][Ii][Kk][Ee][Yy]*.json
+*[Aa][Pp][Ii][-_][Kk][Ee][Yy]*.txt
+*[Aa][Pp][Ii][-_][Kk][Ee][Yy]*.json
+*.[Pp][Ee][Mm]
+*.[Kk][Ee][Yy]
+*.[Pp][Kk][8]
+*.[Pp][1][2]
+*.[Pp][Ff][Xx]
+*.[Jj][Kk][Ss]
+*.[Kk][Ee][Yy][Ss][Tt][Oo][Rr][Ee]
+id_rsa*
+id_ed25519*
+secrets/
+credentials/
+secrets.json
+secrets.yaml
+secrets.yml
+credentials.json
+credentials.yaml
+credentials.yml
+.npmrc
+.netrc
+.aws/
+.ssh/
+
+# Node.js dependencies and logs
+node_modules/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Test, build, and tool output
+coverage/
+.nyc_output/
+dist/
+build/
+.cache/
+.parcel-cache/
+.vite/
+*.tsbuildinfo
+
+# Temporary files and editor backups
+tmp/
+temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+*.bak
+__pycache__/
+*.pyc
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini

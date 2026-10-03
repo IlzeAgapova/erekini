@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="lv">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>E-rēķina pārveidotājs</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PEPPOL BIS Billing 3.0 / UBL XML</p>
+          <h1>E-rēķina pārveidotājs</h1>
+        </div>
+        <div class="status-pill" id="statusPill">Nav ģenerēts</div>
+      </header>
+
+      <section class="tool-grid">
+        <aside class="panel import-panel">
+          <h2>Avota rēķins</h2>
+          <textarea id="rawText" spellcheck="false" placeholder="Pārdevējs: SIA ...
+Pircējs: ...
+Rēķins nr. ...
+Pakalpojums;1;100.00;21"></textarea>
+          <div class="button-row">
+            <button type="button" id="parseText">Atpazīt tekstu</button>
+            <label class="file-button">
+              <input type="file" id="fileInput" accept=".txt,.csv,.json">
+              Ielādēt failu
+            </label>
+            <button type="button" id="loadDemo">Piemērs</button>
+          </div>
+          <div class="mini-note">CSV rindas: apraksts; daudzums; cena; PVN%</div>
+        </aside>
+
+        <form id="invoiceForm" class="editor" autocomplete="off">
+          <section class="panel">
+            <div class="section-title">
+              <h2>Rēķins</h2>
+              <div class="totals" id="totalsSummary">0.00 EUR</div>
+            </div>
+            <div class="field-grid four">
+              <label>
+                <span>Numurs</span>
+                <input name="invoice.number" required>
+              </label>
+              <label>
+                <span>Datums</span>
+                <input name="invoice.issueDate" type="date" required>
+              </label>
+              <label>
+                <span>Apmaksāt līdz</span>
+                <input name="invoice.dueDate" type="date" required>
+              </label>
+              <label>
+                <span>Valūta</span>
+                <input name="invoice.currency" maxlength="3" required>
+              </label>
+            </div>
+            <div class="field-grid two">
+              <label>
+                <span>Pircēja atsauce</span>
+                <input name="invoice.buyerReference" required>
+              </label>
+              <label>
+                <span>Apmaksas teksts</span>
+                <input name="invoice.paymentTerms">
+              </label>
+            </div>
+            <label>
+              <span>Piezīme</span>
+              <input name="invoice.note">
+            </label>
+          </section>
+
+          <section class="party-layout">
+            <div class="panel">
+              <h2>Pārdevējs</h2>
+              <div class="field-grid two">
+                <label>
+                  <span>Nosaukums</span>
+                  <input name="seller.name" required>
+                </label>
+                <label>
+                  <span>Reģ. nr.</span>
+                  <input name="seller.regNo" required>
+                </label>
+                <label>
+                  <span>PVN nr.</span>
+                  <input name="seller.vatNo">
+                </label>
+                <label>
+                  <span>IBAN</span>
+                  <input name="seller.iban">
+                </label>
+                <label>
+                  <span>EAS kods</span>
+                  <select name="seller.endpointScheme">
+                    <option value="0218">0218 LV reģ. nr.</option>
+                    <option value="9939">9939 LV PVN nr.</option>
+                  </select>
+                </label>
+                <label>
+                  <span>E-adreses ID</span>
+                  <input name="seller.endpointId">
+                </label>
+              </div>
+              <div class="field-grid two">
+                <label>
+                  <span>Iela</span>
+                  <input name="seller.street" required>
+                </label>
+                <label>
+                  <span>Pilsēta</span>
+                  <input name="seller.city" required>
+                </label>
+                <label>
+                  <span>Pasta indekss</span>
+                  <input name="seller.postalCode">
+                </label>
+                <label>
+                  <span>Valsts</span>
+                  <input name="seller.country" maxlength="2" required>
+                </label>
+                <label class="span-two">
+                  <span>E-pasts</span>
+                  <input name="seller.email" type="email">
+                </label>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h2>Pircējs</h2>
+              <div class="field-grid two">
+                <label>
+                  <span>Nosaukums</span>
+                  <input name="buyer.name" required>
+                </label>
+                <label>
+                  <span>Reģ. nr.</span>
+                  <input name="buyer.regNo" required>
+                </label>
+                <label>
+                  <span>PVN nr.</span>
+                  <input name="buyer.vatNo">
+                </label>
+                <label>
+                  <span>E-pasts</span>
+                  <input name="buyer.email" type="email">
+                </label>
+                <label>
+                  <span>EAS kods</span>
+                  <select name="buyer.endpointScheme">
+                    <option value="0218">0218 LV reģ. nr.</option>
+                    <option value="9939">9939 LV PVN nr.</option>
+                  </select>
+                </label>
+                <label>
+                  <span>E-adreses ID</span>
+                  <input name="buyer.endpointId">
+                </label>
+              </div>
+              <div class="field-grid two">
+                <label>
+                  <span>Iela</span>
+                  <input name="buyer.street" required>
+                </label>
+                <label>
+                  <span>Pilsēta</span>
+                  <input name="buyer.city" required>
+                </label>
+                <label>
+                  <span>Pasta indekss</span>
+                  <input name="buyer.postalCode">
+                </label>
+                <label>
+                  <span>Valsts</span>
+                  <input name="buyer.country" maxlength="2" required>
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-title">
+              <h2>Rindas</h2>
+              <button type="button" id="addLine">Pievienot rindu</button>
+            </div>
+            <div class="line-table" id="lineTable"></div>
+          </section>
+        </form>
+
+        <section class="panel output-panel">
+          <div class="section-title">
+            <h2>XML</h2>
+            <div class="button-row">
+              <button type="button" id="generateXml">Ģenerēt</button>
+              <button type="button" id="copyXml" disabled>Kopēt</button>
+              <button type="button" id="downloadXml" disabled>Lejupielādēt</button>
+            </div>
+          </div>
+          <div id="messages" class="messages"></div>
+          <textarea id="xmlOutput" spellcheck="false" readonly></textarea>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
